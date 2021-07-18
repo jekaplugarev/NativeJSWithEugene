@@ -15,6 +15,30 @@ console.log('lesson 3');
 // https://jsonplaceholder.typicode.com/posts/1
 // https://habr.com/ru/company/oleg-bunin/blog/417461/?_ga=2.54695343.543933152.1602500664-1040035071.1596811661
 
+// let prom = new Promise((resolve, reject) => {
+//     setTimeout(() => {
+//         // resolve(10) // all ok
+//         reject(0) // some error
+//     }, 2000)
+// }) // res, rej
+//
+// prom
+//     .then(res => {
+//     console.log('resolve1', res)
+//         throw -15
+//     return 50
+// }, err => {
+//     console.log('err1', err)
+// })
+//     .then(res2 => {
+//         console.log('resolve2', res2)
+//     }, err2 => {
+//         console.log('err2', err2)
+//     })
+//     .catch(err => {
+//         console.log('err', err)
+//     })
+
 
 // just a plug
 export default ()=>{};
