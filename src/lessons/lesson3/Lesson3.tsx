@@ -8,18 +8,33 @@ const Lesson3 = () => {
     const [searchNameByType, setSearchNameByType] = useState('');
     const [searchResultByType, setSearchResultByType] = useState('');
 
-    const searchFilm = () => {
-        API.searchFilmsByTitle(searchName)
-            .then(response => {
-                if (response.data.Response === 'True') {
-                    setSearchResult(JSON.stringify(response.data.Search))
-                    console.log(JSON.parse(searchResult))
-                } else {
-                    setSearchResult(response.data.Error)
-                }
-            })
-            .catch(err => err)
-    };
+    // const searchFilm = () => {
+    //     API.searchFilmsByTitle(searchName)
+    //         .then(response => {
+    //             if (response.data.Response === 'True') {
+    //                 setSearchResult(JSON.stringify(response.data.Search))
+    //                 console.log(JSON.parse(searchResult))
+    //             } else {
+    //                 setSearchResult(response.data.Error)
+    //             }
+    //         })
+    //         .catch(err => err)
+    // };
+
+    const searchFilm = async () => {
+        try {
+            const {data} = await API.searchFilmsByTitle(searchName)
+            const {Response, Search, Error} = data
+            if (Response === 'True') {
+                setSearchResult(JSON.stringify(Search))
+                console.log(JSON.parse(searchResult))
+            } else {
+                setSearchResult(Error)
+            }
+        } catch (e) {
+            console.log('Some error', e)
+        }
+    }
 
     const filmElement = searchResult && JSON.parse(searchResult).map((el: any) => {
             return (

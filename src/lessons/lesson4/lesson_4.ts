@@ -8,7 +8,6 @@ console.log('lesson 4');
 // Создайте промис, который постоянно находиться в состоянии pending.
 // В конструкторе промиса выведите в консоль сообщение "Promise is created".
 
-
 // Task 02
 // Создайте промис, который после создания сразу же переходит в состояние resolve
 // и возвращает строку 'Promise Data'
@@ -41,6 +40,50 @@ console.log('lesson 4');
 // свойства resolve и reject получают ссылки на соответствующие функции
 // resolve и reject. Следующие два обработчика запускают методы resolve и reject.
 
+type testObjType = {
+    promise: null | Promise<any>
+    resolve: null | Function
+    reject: null | Function
+    onSuccess: (param: string) => void
+    onError: (param: string) => void
+}
+
+const handlePromise: testObjType = {
+    promise: null,
+    resolve: null,
+    reject: null,
+    onSuccess: (param: string) => {
+        console.log(`Promise is resolved with data: ${param}`)
+    },
+    onError: (param: string) => {
+        console.log(`Promise is rejected with error: ${param}`)
+    }
+}
+
+export const createPromise = () => {
+    const somePromise: Promise<any> = new Promise((res, rej) => {
+        handlePromise.resolve = res
+        handlePromise.reject = rej
+    })
+    handlePromise.promise = somePromise
+    handlePromise.promise
+        // .then(res => handlePromise.onSuccess(res))
+        // .catch(rej =>handlePromise.onError(rej))
+        .then(handlePromise.onSuccess)
+        .catch(handlePromise.onError)
+    console.log(handlePromise)
+}
+
+export const resolvePromise = () => {
+    handlePromise.resolve && handlePromise.resolve('1')
+}
+
+export const rejectPromise = () => {
+    handlePromise.reject && handlePromise.reject('0')
+}
+
+// @ts-ignore
+window.promise = handlePromise
 
 // Task 06
 // Создайте промис, который через 1 с возвращает строку "My name is".
@@ -55,7 +98,6 @@ console.log('lesson 4');
 // второй промис возвращает объект {age: 16} через 3 с, а третий {city: ''} через 4с.
 // Получите результаты работы промисов, объедините свойства объектов
 // и выведите в консоль {name, age, city}
-
 
 
 // just a plug
