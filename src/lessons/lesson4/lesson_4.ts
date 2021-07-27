@@ -7,25 +7,39 @@ console.log('lesson 4');
 // Task 01
 // Создайте промис, который постоянно находиться в состоянии pending.
 // В конструкторе промиса выведите в консоль сообщение "Promise is created".
+const task1 = new Promise((res, rej) => {
+    console.log('Promise is created')
+})
+console.log(task1)
 
 // Task 02
 // Создайте промис, который после создания сразу же переходит в состояние resolve
 // и возвращает строку 'Promise Data'
 // Получите данные промиса и выведите их в консоль
-
+const task2 = new Promise((res, rej) => {
+    res('Hello')
+})
+task2.then(console.log)
 
 // Task 03
 // Создайте промис, который после создания сразу же переходит в состояние rejected
 // и возвращает строку 'Promise Error'
 // Получите данные промиса и выведите их в консоль
-
+const task3 = new Promise((res, rej) => {
+    rej('Bye')
+})
+task3.catch(console.log)
+// task3.then(null, console.log)
 
 // Task 04
 // Создайте промис, который переходит в состояние resolved через 3с.
 // (Используйте setTimeout)
 // и возвращает строку 'Promise Data'
 // Получите данные промиса и выведите их в консоль
-
+const task4 = new Promise((res, rej) => {
+    setTimeout(res, 3000, 'Promise Data')
+})
+task4.then(console.log)
 
 // Task 05
 // Создайте литерал объекта handlePromise со следующими свойствами:
@@ -101,4 +115,5 @@ window.promise = handlePromise
 
 
 // just a plug
-export default ()=>{};
+export default () => {
+};
