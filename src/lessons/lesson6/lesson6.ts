@@ -12,6 +12,78 @@ console.log('Lesson 6');
 // Создать массив из десяти элементов такого типа, упорядочить записи по возрастанию среднего балла.
 // Добавить возможность вывода фамилий и номеров групп студентов, имеющих оценки, равные только 4 или 5.
 
+interface IStudent {
+    name: string
+    surname: string
+    groupNumber: number
+    progress: number[]
+    averageMark: number
+}
+
+class Student implements IStudent {
+    name: string
+    surname: string
+    groupNumber: number
+    progress: number[]
+    averageMark: number
+
+    constructor(name: string,
+                surname: string,
+                groupNumber: number,
+                progress: number[]) {
+        this.name = name
+        this.surname = surname
+        this.groupNumber = groupNumber
+        this.progress = progress
+        this.averageMark = this.progress.reduce((sum, mark) => sum + mark / this.progress.length)
+    }
+
+    private static sortStudent(s1: IStudent, s2: IStudent) {
+        if (s1.averageMark > s2.averageMark) {
+            return 1
+        } else if (s1.averageMark < s2.averageMark) {
+            return -1
+        } else {
+            return 0
+        }
+    }
+
+    static sort(arr: Array<IStudent>) {
+        const temp = [...arr]
+        return temp.sort(this.sortStudent)
+    }
+
+    private static isAllMarksEqual(marks: number[], mark: number) {
+        return marks.every(mk => mk === mark)
+    }
+
+    private static filterStudent(arr: Array<IStudent>) {
+        const result: Array<IStudent> = []
+        arr.forEach(s => {
+            if (this.isAllMarksEqual(s.progress, 4) || this.isAllMarksEqual(s.progress, 5)) {
+                result.push(s)
+            }
+        })
+        return result
+    }
+
+    static printGoodStudent(arr: Array<IStudent>) {
+        this.filterStudent(arr).forEach(s => {
+            console.log(`Student - ${s.surname}, Group - ${s.groupNumber}`)
+        })
+    }
+}
+
+let students = []
+students.push(new Student('Jeka', 'Plugarev', 1, [4, 4, 4, 4]))
+students.push(new Student('Katy', 'Plugareva', 2, [5, 3, 5, 4]))
+students.push(new Student('Mila', 'Plugareva', 3, [5, 5, 5, 5]))
+
+console.log(students)
+console.log(Student.sort(students))
+Student.printGoodStudent(students)
+
+
 // Task 02
 // Создать класс с двумя переменными. Добавить конструктор с входными параметрами и инициализирующий члены класса по умолчанию.
 // Можно ли создать метод на экземпляре класса который будет удалять сам экземпляр класса?

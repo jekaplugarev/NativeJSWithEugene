@@ -29,8 +29,6 @@ function Test(name) {
 let obj = new Test('Jeka')
 console.log(obj)
 
-
-
 let obj2= {name: 'Katy'}
 function test() {
     // @ts-ignore
